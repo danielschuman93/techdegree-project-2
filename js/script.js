@@ -2,8 +2,6 @@
 Treehouse Techdegree:
 FSJS project 2 - List Filter and Pagination
 ******************************************/
-   
-// Study guide for this project - https://drive.google.com/file/d/1OD1diUsTMdpfMDv677TfL1xO2CEkykSz/view?usp=sharing
 
 
 /*** 
@@ -49,13 +47,14 @@ function showPage (list, page){
 ***/
 
 function appendPageLinks (list) {
+  //create div and ul elements and add them to the page
   const page = document.querySelector('.page');
-  const pageHeader = document.querySelector('div.page-header');
   const div = document.createElement('div');
   div.className = ('pagination')
   const ul = document.createElement('ul');
   page.appendChild(div);
   div.appendChild(ul);
+  //calculate how many page links need to be created, and append them to the ul
   for (let i = 1; i <= (Math.ceil(list.length/itemsPerPage)); i++) {
     let li = document.createElement('li');
     let a = document.createElement('a');
@@ -64,14 +63,14 @@ function appendPageLinks (list) {
     li.appendChild(a);
     ul.appendChild(li);
   }
-  
+  //conditional statement to check if the list contains any list items
   if (ul.firstElementChild === null) {
     noStudent.style.display = 'block';
   } else {
       ul.firstElementChild.firstElementChild.className = 'active';
       noStudent.style.display = 'none';
     }
-  
+  //event listener removes the active styling and adds the active styling to the target
   ul.addEventListener('click', (e) => {
     let active = document.querySelector('a.active');
     active.className = '';
@@ -97,7 +96,8 @@ function createSearchBar() {
   searchDiv.appendChild(searchInput);
   searchDiv.appendChild(searchButton);
   pageHeader.appendChild(searchDiv);
-  
+  //event listener clears the sutdentDisplay array and adds the list items that contain the search
+  //input and then displays the new list upon clicking the search button
   searchButton.addEventListener('click', (e) => {
     studentDisplay = [];
     for (let i = 0; i < studentList.length; i++) {
@@ -112,7 +112,8 @@ function createSearchBar() {
     page.removeChild(pagDiv);
     appendPageLinks(studentDisplay);
   })
-  
+  //event listener clears the sutdentDisplay array and adds the list items that contain the search
+  //input and then displays the new list as the input is being typed
   searchInput.addEventListener('keyup', (e) => {
     studentDisplay = [];
     for (let i = 0; i < studentList.length; i++) {
@@ -130,7 +131,7 @@ function createSearchBar() {
 }
 
 
-//adds the `noStudent` message to the HTML
+//adds the `noStudent` message to the HTML and sets the default display to `none`
 noStudent.textContent = 'No student(s) found.';
 page.insertBefore(noStudent, studentUl);
 noStudent.style.display = 'none';
